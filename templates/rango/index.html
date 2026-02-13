@@ -8,7 +8,8 @@
 <body>
     <h1>Rango says...</h1>
     <h2>Categories</h2>
-<h2>Categories</h2>
+            <p><a href="{% url 'rango:add_category' %}">Add a New Category</a></p>
+
 
 {% if categories %}
 <ul>
@@ -17,9 +18,9 @@
             <a href="{% url 'rango:show_category' c.slug %}">{{ c.name }}</a>
             (views: {{ c.views }}, likes: {{ c.likes }})
         </li>
+
     {% endfor %}
 </ul>
-    <p><a href="{% url 'rango:add_category' %}">Add a New Category</a></p>
 
 {% else %}
 <strong>There are no categories present.</strong>

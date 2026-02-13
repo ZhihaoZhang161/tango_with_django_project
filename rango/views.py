@@ -10,7 +10,7 @@ def add_page(request, category_name_slug):
         category = None
 
     if category is None:
-        return redirect('rango:index')
+        return redirect('rango:show_category', category_name_slug=category_name_slug)
 
     form = PageForm()
 
@@ -38,7 +38,7 @@ def add_category(request):
         if form.is_valid():
             form.save(commit=True)
 
-            return index(request)
+            return redirect('rango:index')
         else:
             print(form.errors)
 
