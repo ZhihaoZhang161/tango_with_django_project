@@ -6,6 +6,8 @@
 
 <body>
 {% if category %}
+    <p><a href="{% url 'rango:add_page' category.slug %}">Add a Page</a></p>
+
     <h1>{{ category.name }}</h1>
 
     {% if pages %}

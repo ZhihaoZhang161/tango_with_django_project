@@ -19,6 +19,8 @@
         </li>
     {% endfor %}
 </ul>
+    <p><a href="{% url 'rango:add_category' %}">Add a New Category</a></p>
+
 {% else %}
 <strong>There are no categories present.</strong>
 {% endif %}
