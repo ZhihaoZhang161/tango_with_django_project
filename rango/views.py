@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from rango.models import UserProfile
 from rango.forms import UserProfileForm
+
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
