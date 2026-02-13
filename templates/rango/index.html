@@ -4,6 +4,8 @@
     <p>
         Logged in as {{ user.username }} |
         <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'rango:profile' %}">Profile</a> |
+
     </p>
 {% else %}
     <p>

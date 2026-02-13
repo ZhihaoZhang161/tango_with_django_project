@@ -105,3 +105,7 @@ def add_category(request):
 @login_required
 def add_page(request, category_name_slug):
     ...
+@login_required
+def profile(request):
+    user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
+    return render(request, 'rango/profile.html', {'user_profile': user_profile})

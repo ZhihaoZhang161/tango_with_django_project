@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h1>{{ user.username }}'s Profile</h1>
+
+    <p><strong>Website:</strong>
+        {% if user_profile.website %}
+            <a href="{{ user_profile.website }}">{{ user_profile.website }}</a>
+        {% else %}
+            (not set)
+        {% endif %}
+    </p>
+
+    <p><strong>Picture:</strong></p>
+    {% if user_profile.picture %}
+        <img src="{{ user_profile.picture.url }}" alt="profile picture" width="200">
+    {% else %}
+        <p>(no picture uploaded)</p>
+    {% endif %}
+
+    <p><a href="{% url 'rango:index' %}">Back to Home</a></p>
+</body>
+</html>
