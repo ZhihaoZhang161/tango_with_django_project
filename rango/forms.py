@@ -1,6 +1,7 @@
 from django import forms
 from rango.models import Category
 from rango.models import Page
+from rango.models import UserProfile
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(
@@ -12,6 +13,10 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = ('name',)
 
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'picture')
 
 class PageForm(forms.ModelForm):
     title = forms.CharField(

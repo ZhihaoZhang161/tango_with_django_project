@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from rango.forms import UserProfileForm
+from django.contrib.auth.forms import UserCreationForm
 
 def add_page(request, category_name_slug):
     try:
@@ -63,3 +66,42 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
 
     return render(request, 'rango/category.html', context=context_dict)
+
+def register(request):
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        profile_form = UserProfileForm(request.POST, request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+
+            profile.save()
+
+            registered = True
+            login(request, user)
+            return redirect('rango:index')
+        else:
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserCreationForm()
+        profile_form = UserProfileForm()
+
+    return render(request, 'rango/register.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'registered': registered})
+@login_required
+def add_category(request):
+    ...
+
+@login_required
+def add_page(request, category_name_slug):
+    ...

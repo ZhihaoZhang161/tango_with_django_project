@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html>
+{% if user.is_authenticated %}
+    <p>
+        Logged in as {{ user.username }} |
+        <a href="{% url 'logout' %}">Logout</a>
+    </p>
+{% else %}
+    <p>
+        <a href="{% url 'login' %}">Login</a> |
+        <a href="{% url 'rango:register' %}">Register</a>
+    </p>
+{% endif %}
+
 <head>
     <title>Rango</title>
     {% load static %}
