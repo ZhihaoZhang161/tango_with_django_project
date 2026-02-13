@@ -3,11 +3,17 @@
 <head>
     <title>Rango</title>
 </head>
+
 <body>
 {% if category %}
     <h1>{{ category.name }}</h1>
 
     {% if pages %}
+
+<p>
+    <a href="{% url 'rango:add_page' category.slug %}">Add a Page</a>
+</p>
+
         <ul>
         {% for p in pages %}
             <li><a href="{{ p.url }}">{{ p.title }}</a> ({{ p.views }} views)</li>
