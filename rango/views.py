@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from rango.forms import UserProfileForm
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.decorators import login_required
+from rango.models import UserProfile
+from rango.forms import UserProfileForm
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -109,3 +109,17 @@ def add_page(request, category_name_slug):
 def profile(request):
     user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
     return render(request, 'rango/profile.html', {'user_profile': user_profile})
+
+@login_required
+def edit_profile(request):
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('rango:profile')
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'rango/edit_profile.html', {'form': form})
